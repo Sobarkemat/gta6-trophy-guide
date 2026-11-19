@@ -3,79 +3,74 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Leonida Platinum — GTA VI Trophy Guide &amp; Tracker</title>
-<meta name="description" content="An offline guide and tracker for all 55 PlayStation 5 trophies of Grand Theft Auto VI: official names, descriptions and grades, a checklist saved in your browser, filters, a spoiler setting, a roadmap to the platinum, and a cited guide for every trophy.">
+<title>Leonida Platinum - GTA VI Trophy Guide &amp; Tracker</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="masthead">
-  <div class="masthead-title">
-    <p class="kicker">Grand Theft Auto VI &middot; PlayStation 5 &middot; Offline guide</p>
+<header id="top">
+  <div class="brand">
+    <p class="kicker">Grand Theft Auto VI &middot; PlayStation 5</p>
     <h1>Leonida Platinum</h1>
-    <p class="subtitle">Every one of the 55 trophies, with a guide that cites its sources — and a tracker that remembers your progress.</p>
+    <p class="tagline">The offline guide and tracker for all 55 trophies. No network, no account, no Rockstar art &mdash; just the list, the guides, and your progress.</p>
   </div>
-  <div class="masthead-progress" id="progressCard" aria-label="Overall progress">
-    <p class="big-count"><span id="earnedCount">0</span><span class="of"> / 55</span></p>
-    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="55" aria-valuenow="0" id="progressBar"><span id="progressFill"></span></div>
-    <p class="progress-note" id="progressNote">0% to the platinum</p>
-    <p class="grade-counts" id="gradeCounts"></p>
+  <div class="progress" id="progressBox" aria-label="Progress">
+    <p class="big"><span id="earnedCount">0</span><span class="of"> / 55 earned</span></p>
+    <div class="bar"><div class="fill" id="progressFill" style="width:0%"></div></div>
+    <p class="counts" id="gradeCounts">1 platinum &middot; 2 gold &middot; 6 silver &middot; 46 bronze &middot; 28 hidden</p>
+    <p class="counts" id="earnedByGrade"></p>
   </div>
 </header>
-
-<nav class="tabs" aria-label="Sections">
-  <a href="#/checklist" data-view="checklist">Checklist</a>
-  <a href="#/roadmap" data-view="roadmap">Roadmap to Platinum</a>
-  <a href="#/missables" data-view="missables">Missables</a>
-  <a href="#/sources" data-view="sources">Sources</a>
+<nav id="mainNav" aria-label="Sections">
+  <button data-view="checklist" class="active" type="button">Checklist</button>
+  <button data-view="roadmap" type="button">Roadmap to Platinum</button>
+  <button data-view="missables" type="button">Missables</button>
+  <button data-view="sources" type="button">Sources</button>
 </nav>
-
-<section class="toolbar" aria-label="Tracker controls">
-  <label class="search-box">Search <input id="search" type="search" placeholder="Trophy name or mission…" autocomplete="off"></label>
-  <label>Kind
-    <select id="kindFilter">
-      <option value="all">All kinds</option>
-      <option value="story">Story</option>
-      <option value="missable">Missable</option>
-      <option value="collectibles">Collectibles</option>
-      <option value="activities">Activities</option>
-      <option value="platinum">Platinum</option>
-      <option value="completion">100% completion</option>
-    </select>
-  </label>
+<section id="toolbar" aria-label="Filters and tools">
+  <label class="search">Search <input id="searchBox" type="search" placeholder="Trophy name, mission, keyword&hellip;" autocomplete="off"></label>
+  <div class="chips" id="kindChips" aria-label="Filter by kind"></div>
   <label>Grade
     <select id="gradeFilter">
-      <option value="all">All grades</option>
+      <option value="">All grades</option>
       <option value="platinum">Platinum</option>
       <option value="gold">Gold</option>
       <option value="silver">Silver</option>
       <option value="bronze">Bronze</option>
     </select>
   </label>
-  <label>Show
-    <select id="earnedFilter">
-      <option value="all">All trophies</option>
-      <option value="unearned">Not yet earned</option>
-      <option value="earned">Earned only</option>
+  <label>Status
+    <select id="statusFilter">
+      <option value="">All</option>
+      <option value="earned">Earned</option>
+      <option value="todo">Not earned</option>
     </select>
   </label>
   <label class="toggle"><input id="spoilerToggle" type="checkbox"> Hide story spoilers</label>
-  <span class="toolbar-spacer"></span>
+  <label class="toggle"><input id="missableToggle" type="checkbox"> Missable only</label>
   <button id="exportBtn" type="button">Export progress</button>
-  <label class="import-btn">Import progress <input id="importFile" type="file" accept="application/json,.json"></label>
-  <button id="resetBtn" type="button" class="quiet">Reset</button>
+  <button id="importBtn" type="button">Import progress</button>
+  <input id="importFile" type="file" accept="application/json,.json" hidden>
+  <button id="resetBtn" type="button">Reset</button>
 </section>
-<p class="toolbar-status" id="filterStatus" aria-live="polite"></p>
-
-<main id="view"></main>
-
-<aside id="detailPanel" class="detail-panel" hidden aria-label="Trophy guide"></aside>
-
-<footer>
-  <p>Names, descriptions and grades are the official PlayStation 5 list as published on PlayStation Network, mirrored by Exophase and PSNProfiles (checked 18 November 2026). Guides are written for this page, in our own words, and cite their sources beside each trophy. Four trophies are still unconfirmed by any guide — the page says so where it applies.</p>
-  <p>Progress is stored only in this browser (localStorage). Export saves it as a file; import reads that file back. Nothing here talks to the network: open it with the network off and it works the same.</p>
-  <p class="fineprint">An unofficial fan guide. Not affiliated with Rockstar Games, Take-Two Interactive, Sony Interactive Entertainment or PlayStation. No Rockstar logo or official artwork is used anywhere on this page.</p>
+<main id="main">
+  <section id="listPane" aria-label="Trophy list">
+    <p id="listSummary"></p>
+    <ul id="trophyList"></ul>
+  </section>
+  <aside id="detailPane" aria-label="Trophy guide">
+    <div id="detailEmpty">
+      <h2>Pick a trophy</h2>
+      <p>Click any trophy in the list to read its official description, its guide, and where every fact comes from. Tick the box when you earn it &mdash; your progress is saved in this browser.</p>
+      <p><strong>First run?</strong> Start with the Roadmap tab: four stages, about 200 hours, one playthrough.</p>
+    </div>
+    <article id="detailCard" hidden></article>
+  </aside>
+</main>
+<section id="pagePane" hidden></section>
+<footer id="footer">
+  <p>Leonida Platinum is an independent fan guide. It is not affiliated with Rockstar Games, Take-Two Interactive, Sony, or PlayStation. Trophy names and descriptions are PlayStation&rsquo;s own words; every guide is written in our own words and cites its sources. Works fully offline: it loads nothing over the network.</p>
+  <p id="dataNote"></p>
 </footer>
-
-<script type="module" src="app.js"></script>
+<script type="module" src="js/main.js"></script>
 </body>
 </html>
